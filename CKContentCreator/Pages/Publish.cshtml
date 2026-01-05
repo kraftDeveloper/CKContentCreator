@@ -1,0 +1,25 @@
+﻿@page "{id:Guid}"
+@model PublishModel
+@{
+    var theme = HttpContext.Session.GetString("Theme") ?? "light";
+}
+
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Publish: @Model.Idea.Topic</h1>
+    <div class="card">
+        <div class="card-body">
+            <form method="post">
+                <div class="form-group mb-3">
+                    <label for="SelectedBlog" class="form-label">Select WordPress Blog</label>
+                    <select class="form-control" asp-for="SelectedBlog">
+                        @foreach (var blog in Model.Blogs)
+                        {
+                            <option value="@blog.Name">@blog.Name (@blog.Url)</option>
+                        }
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-success w-100">Publish to Blog</button>
+            </form>
+        </div>
+    </div>
+</div>

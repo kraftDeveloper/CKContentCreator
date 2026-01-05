@@ -1,0 +1,33 @@
+﻿@page
+@model ManagePostsModel
+@{
+    var theme = HttpContext.Session.GetString("Theme") ?? "light";
+}
+
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Manage Posts for @Model.BlogName</h1>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Status</th>
+                <th>Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var post in Model.Posts)
+            {
+                <tr>
+                    <td>@post.Title.Rendered</td>
+                    <td>@post.Status</td>
+                    <td>@post.Date.ToShortDateString()</td>
+                    <td>
+                        <a href="@post.Link" target="_blank" class="btn btn-sm btn-outline-primary">View on Site</a>
+                        <!-- Add edit/delete handlers if needed -->
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

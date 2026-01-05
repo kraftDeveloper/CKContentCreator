@@ -1,0 +1,43 @@
+﻿@page
+@model PostIdeasModel
+@{
+    var theme = HttpContext.Session.GetString("Theme") ?? "light";
+}
+
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Manage Blog Post Ideas</h1>
+    <div class="card mb-4">
+        <div class="card-body">
+            <form method="post" asp-page-handler="Generate">
+                <div class="form-group mb-3">
+                    <label for="Topic" class="form-label">Enter Blog Post Topic</label>
+                    <input type="text" class="form-control" asp-for="Topic" placeholder="e.g., 'The Future of AI in Education'" />
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Generate AI Content & Image</button>
+            </form>
+        </div>
+    </div>
+
+    <h2 class="mb-3">Generated Post Ideas</h2>
+    <div class="row">
+        @foreach (var idea in Model.PostIdeas)
+        {
+            <div class="col-md-4 mb-3">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">@idea.Topic</h5>
+                        <p class="card-text text-muted">Created: @idea.Created.ToShortDateString()</p>
+                    </div>
+                    <div class="card-footer">
+                        <a class="btn btn-sm btn-outline-primary" asp-page="/Preview" asp-route-id="@idea.Id">Preview</a>
+                        <form method="post" asp-page-handler="Delete" class="d-inline">
+                            <input type="hidden" name="id" value="@idea.Id" />
+                            <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                        </form>
+                        <a class="btn btn-sm btn-outline-success" asp-page="/Publish" asp-route-id="@idea.Id">Publish</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

@@ -1,0 +1,49 @@
+:root[data-theme="light"] {
+    --bg-color: #ffffff;
+    --text-color: #000000;
+    --primary-color: #007bff;
+    --card-bg: #f8f9fa;
+}
+
+:root[data-theme="dark"] {
+    --bg-color: #121212;
+    --text-color: #ffffff;
+    --primary-color: #bb86fc;
+    --card-bg: #1e1e1e;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.navbar {
+    background-color: var(--bg-color) !important;
+    color: var(--text-color) !important;
+    border-bottom: 1px solid var(--text-color);
+}
+
+.card {
+    background-color: var(--card-bg);
+    border: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+}
+
+    .card:hover {
+        transform: translateY(-5px);
+    }
+
+.btn {
+    transition: all 0.3s ease;
+}
+
+.table {
+    color: var(--text-color);
+}
+
+    .table th, .table td {
+        border-color: var(--text-color);
+    }
