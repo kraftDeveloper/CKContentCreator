@@ -1,54 +1,62 @@
 ﻿<!DOCTYPE html>
-<html lang="en" data-theme="@(ViewData["Theme"] ?? "light")">
+<html lang="en" data-theme="@(Context.Session.GetString("Theme") ?? "light")">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - CKContentCreator</title>
+    <title>@ViewData["Title"] - CK Content Creator</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/CKContentCreator.styles.css" asp-append-version="true" />
     @RenderSection("Head", required: false)
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">CKContentCreator</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
-                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm mb-4">
+            <div class="container-fluid">
+                <a class="navbar-brand fw-bold" asp-page="/Index">CK Content Creator</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarCollapse" aria-controls="navbarCollapse"
+                        aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between" id="navbarCollapse">
+                    <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
+                            <a class="nav-link" asp-page="/PostIdeas">Post Ideas</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
-                        </li>
-                        @RenderSection("NavbarItems", required: false)
+                        @if (ViewBag.Blogs is IEnumerable<CKContentCreator.Models.Blog> blogs)
+                        {
+                            foreach (var blog in blogs)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-page="/ManagePosts" asp-route-blogName="@blog.Name">
+                                        Manage @blog.Name
+                                    </a>
+                                </li>
+                            }
+                        }
                     </ul>
-                    @RenderSection("NavbarRight", required: false)
+                    <form method="post" asp-page="/Index" asp-page-handler="SwitchTheme" class="d-flex">
+                        <button type="submit" class="btn btn-outline-primary btn-sm">
+                            Switch to @(Context.Session.GetString("Theme") == "dark" ? "Light" : "Dark") Mode
+                        </button>
+                    </form>
                 </div>
             </div>
         </nav>
     </header>
 
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
+    <main class="container flex-grow-1">
+        @RenderBody()
+    </main>
 
-    <footer class="border-top footer text-muted">
+    <footer class="text-center text-muted py-3 mt-auto">
         <div class="container">
-            &copy; 2026 - CKContentCreator - <a asp-area="" asp-page="/Privacy">Privacy</a>
+            &copy; 2026 - CK Content Creator
         </div>
     </footer>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

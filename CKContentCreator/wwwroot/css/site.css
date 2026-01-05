@@ -1,49 +1,95 @@
+/* wwwroot/css/site.css */
+
 :root[data-theme="light"] {
     --bg-color: #ffffff;
     --text-color: #000000;
-    --primary-color: #007bff;
-    --card-bg: #f8f9fa;
+    --navbar-bg: #f8f9fa;
+    --navbar-border: #dee2e6;
+    --card-bg: #ffffff;
+    --table-border: #dee2e6;
+    --primary: #007bff;
+    --primary-hover: #0056b3;
 }
 
 :root[data-theme="dark"] {
     --bg-color: #121212;
-    --text-color: #ffffff;
-    --primary-color: #bb86fc;
+    --text-color: #e0e0e0;
+    --navbar-bg: #1e1e1e;
+    --navbar-border: #333333;
     --card-bg: #1e1e1e;
+    --table-border: #444444;
+    --primary: #bb86fc;
+    --primary-hover: #9f67e8;
 }
 
-body {
+html, body {
     background-color: var(--bg-color);
     color: var(--text-color);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     transition: background-color 0.3s ease, color 0.3s ease;
+    min-height: 100vh;
 }
 
 .navbar {
-    background-color: var(--bg-color) !important;
-    color: var(--text-color) !important;
-    border-bottom: 1px solid var(--text-color);
+    background-color: var(--navbar-bg) !important;
+    border-bottom: 1px solid var(--navbar-border);
 }
+
+    .navbar .navbar-brand,
+    .navbar .nav-link,
+    .navbar .btn {
+        color: var(--text-color) !important;
+    }
+
+        .navbar .nav-link:hover,
+        .navbar .btn:hover {
+            color: var(--primary) !important;
+        }
 
 .card {
     background-color: var(--card-bg);
-    border: none;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s;
+    border: 1px solid var(--navbar-border);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: transform 0.2s ease;
 }
 
     .card:hover {
-        transform: translateY(-5px);
+        transform: translateY(-4px);
     }
-
-.btn {
-    transition: all 0.3s ease;
-}
 
 .table {
     color: var(--text-color);
+    background-color: var(--card-bg);
 }
 
-    .table th, .table td {
-        border-color: var(--text-color);
+    .table th,
+    .table td {
+        border-color: var(--table-border);
     }
+
+.btn-primary {
+    background-color: var(--primary);
+    border-color: var(--primary);
+}
+
+    .btn-primary:hover {
+        background-color: var(--primary-hover);
+        border-color: var(--primary-hover);
+    }
+
+.btn-outline-primary {
+    color: var(--primary);
+    border-color: var(--primary);
+}
+
+    .btn-outline-primary:hover {
+        background-color: var(--primary);
+        color: white;
+    }
+
+footer {
+    margin-top: auto;
+    padding: 1rem 0;
+    background-color: var(--navbar-bg);
+    border-top: 1px solid var(--navbar-border);
+}
